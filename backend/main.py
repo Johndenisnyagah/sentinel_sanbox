@@ -13,12 +13,17 @@ from app.db.database import init_db, get_db_connection, log_event, log_alert
 from app.engine.detector import DetectionEngine
 from app.simulation.attacker import SimulationModule
 
+import os
+
 app = FastAPI(title="SentinelSandbox API")
 
-# Configure CORS for local development
+# Configure CORS for production (Render/Vercel)
+# Fetch allowed origins from environment variable, defaulting to wildcard
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "*").split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

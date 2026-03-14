@@ -15,8 +15,9 @@ import RulesViewer from './components/RulesViewer'
 import AlertModal from './components/AlertModal'
 
 // Configuration for API and WebSocket URLs
+// In production (Vercel), these will be set via Environment Variables
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
-const WS_URL = import.meta.env.VITE_WS_URL || 'ws://localhost:8000/ws/alerts'
+const WS_URL = import.meta.env.VITE_WS_URL || (API_BASE_URL.replace('http', 'ws') + '/ws/alerts')
 
 const App = () => {
   // ── Global Dashboard State ──

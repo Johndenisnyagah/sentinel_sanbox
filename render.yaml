@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: sentinel-sandbox-api
+    runtime: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: cd backend && py -m uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: ALLOWED_ORIGINS
+        value: "*" # Set this to your Vercel URL later for security
