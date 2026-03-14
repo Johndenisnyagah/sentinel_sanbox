@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <!-- Pointer shape with scanner feel -->
+  <path d="M8 6 L8 26 L13 22 L17 28 L20 26 L16 20 L22 20 Z" fill="#e8650a" stroke="#c45000" stroke-width="0.5" stroke-linejoin="round"/>
+  <!-- Small scanner dot at tip -->
+  <circle cx="8" cy="6" r="1.5" fill="#ff8c33" opacity="0.8"/>
+</svg>
