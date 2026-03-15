@@ -181,7 +181,7 @@ const App = () => {
           </div>
 
           {/* Row 2 — Activity Logs, Controls & Policies */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:h-[440px]">
             <ActivityFeed events={events} />
             <SimulationControls onSimulate={handleSimulate} activeSimulation={activeSimulation} />
             <RulesViewer />

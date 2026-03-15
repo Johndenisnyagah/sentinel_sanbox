@@ -45,7 +45,7 @@ const ActivityFeed = ({ events }) => {
       {/* Log Container */}
       <div
         ref={feedRef}
-        className="flex-grow overflow-y-auto font-mono text-[12px] space-y-1 custom-scrollbar max-h-[220px] scroll-smooth"
+        className="flex-grow overflow-y-auto font-mono text-[12px] space-y-1 custom-scrollbar scroll-smooth"
       >
         {/* Empty State */}
         {events.length === 0 && (

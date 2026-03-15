@@ -1,4 +1,4 @@
-# Sentinel_Sandbox 🛡️
+# Sentinel_Sandbox
 
 Sentinel_Sandbox is a high-fidelity, educational **Intrusion Detection System (IDS)** dashboard and simulator. It provides a real-time SoC (Security Operations Center) experience by monitoring network traffic, host telemetry, and simulating common cyber-attack patterns.
 

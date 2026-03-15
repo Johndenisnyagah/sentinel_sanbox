@@ -47,7 +47,7 @@ const RulesViewer = () => {
       </div>
 
       {/* Rules Table */}
-      <div className="flex-grow overflow-y-auto custom-scrollbar">
+      <div className="flex-grow">
         <table className="w-full text-[12px]">
           <thead>
             <tr className="text-text-muted text-left border-b border-border">
