@@ -41,9 +41,12 @@ stats = {
 class ConnectionManager:
     """
     Manages active WebSocket connections for real-time alert/event broadcasting.
+    Includes a heartbeat mechanism to prevent connection timeouts on hosting 
+    providers like Render (which closes idle connections after ~55s).
     """
     def __init__(self):
         self.active_connections: list[WebSocket] = []
+        self.heartbeat_task = None
 
     async def connect(self, websocket: WebSocket):
         """Accepts a new WebSocket connection and adds it to the pool."""
@@ -57,17 +60,30 @@ class ConnectionManager:
 
     async def broadcast(self, message: dict):
         """Sends a JSON message to all currently connected clients."""
+        if not self.active_connections:
+            return
+            
         disconnected = []
         for connection in self.active_connections:
             try:
                 await connection.send_json(message)
             except Exception:
-                # Store failed connections for removal
                 disconnected.append(connection)
         
-        # Clean up stale connections
         for conn in disconnected:
             self.disconnect(conn)
+
+    async def _heartbeat(self):
+        """Background task that sends a keep-alive pulse every 30 seconds."""
+        while True:
+            await asyncio.sleep(30)
+            if self.active_connections:
+                await self.broadcast({"category": "system", "type": "pulse", "details": "heartbeat"})
+
+    def start_heartbeat(self):
+        """Standard entry point to launch the heartbeat loop."""
+        if self.heartbeat_task is None:
+            self.heartbeat_task = asyncio.create_task(self._heartbeat())
 
 manager = ConnectionManager()
 
@@ -127,6 +143,8 @@ attacker = SimulationModule(on_alert, on_event)
 @app.on_event("startup")
 async def startup_event():
     """Handles logic needed when the server starts up."""
+    # Start the WebSocket heartbeat loop to prevent Render timeouts
+    manager.start_heartbeat()
     # detector.start()  # Uncomment to enable live NIC monitoring (requires Admin/Sudo)
     pass
 

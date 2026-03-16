@@ -80,6 +80,9 @@ const App = () => {
     ws.current.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data)
+        // Ignore heartbeat pulses
+        if (data.type === 'pulse') return
+
         // Route message based on category
         if (data.category === 'alert') {
           setAlerts(prev => [data, ...prev])
