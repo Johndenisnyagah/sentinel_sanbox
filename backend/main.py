@@ -46,7 +46,7 @@ class ConnectionManager:
     """
     def __init__(self):
         self.active_connections: list[WebSocket] = []
-        self.heartbeat_task = None
+        self.heartbeat_task: asyncio.Task | None = None
 
     async def connect(self, websocket: WebSocket):
         """Accepts a new WebSocket connection and adds it to the pool."""
